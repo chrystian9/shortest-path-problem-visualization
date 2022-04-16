@@ -31,8 +31,8 @@
 *.out
 *.app
 
-# SPP Visualization/.vs/**
-# SPP Visualization/.vs/SPP Visualization
+SPP Visualization/.vs/**
+SPP Visualization/.vs/SPP Visualization
 SPP Visualization/Debug/**
 SPP Visualization/x64/**
 SPP Visualization/x86/**
