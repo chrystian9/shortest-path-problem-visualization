@@ -11,6 +11,7 @@ namespace ShowCaminhoMinimo
 		AlgoritmoCaminhoMinimo algCaminhoMinimo_;
 		Grafo* grafo_;
 		void constroiTela();
+		void display();
 	public:
 		VisualizaCaminhoMinimo(std::list<int> listaAdjacencia[]);
 		~VisualizaCaminhoMinimo();
