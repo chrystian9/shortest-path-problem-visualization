@@ -7,15 +7,17 @@ using namespace std;
 using namespace ShowCaminhoMinimo;
 
 Grafo* grafo;
+
 void drawArestas() {
 	int** matrizPesos = grafo->getMatrizPesos();
 	Vertice* vertices = grafo->getVertices();
+
 	for (int i = 0; i < 6; i++)
 	{
 		Vertice Origem = vertices[i];
 		for (int j = 0; j < 6; j++)
 		{	
-			if (matrizPesos[i][j] != 0) {
+			if (matrizPesos[i][j] != NULL) {
 				Vertice Destino = vertices[j];
 				glColor3f(1.0, 1.0, 1.0);
 				glBegin(GL_LINES);
@@ -29,8 +31,8 @@ void drawArestas() {
 
 void drawVertices() {
 	Vertice* vertices = grafo->getVertices();
-	for (int i = 0; i < 6; i++)
-	{
+
+	for (int i = 0; i < 6; i++) {
 		Vertice verticeAux = vertices[i];
 
 		glColor3f(1.0, 1.0, 1.0);
@@ -42,23 +44,31 @@ void drawVertices() {
 }
 
 void display(void) {
-	
 	glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(0.0, 0.0, 0.0);
+
 	drawArestas();
 	drawVertices();
+	
 	glFlush();
 }
 
-void init()
-{
-	/* select clearing color 	*/
-	glClearColor(1.0, 1.0, 1.0, 1.0);
-
-	/* initialize viewing values  */
+void reshape(int w, int h) {
+	glViewport(0, 0, (GLsizei)w, (GLsizei)h);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+	if (w <= h)
+		glOrtho(-5.0, 5.0, -5.0 * (GLfloat)h / (GLfloat)w,
+			5.0 * (GLfloat)h / (GLfloat)w, -5.0, 5.0);
+	else
+		glOrtho(-5.0 * (GLfloat)w / (GLfloat)h,
+			5.0 * (GLfloat)w / (GLfloat)h, -5.0, 5.0, -5.0, 5.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
+
+void init() {
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glShadeModel(GL_FLAT);
 }
 
 int main(int argc, char** argv) {
@@ -68,6 +78,8 @@ int main(int argc, char** argv) {
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("Show Caminho Minimo");
 	init();
+	glutDisplayFunc(display);
+	glutReshapeFunc(reshape);
 	
 	int** matrizPesos = new int* [6];
 	for (int i = 0; i < 6; i++) {
@@ -82,7 +94,6 @@ int main(int argc, char** argv) {
 	matrizPesos[4][5] = 1;
 	grafo = new Grafo(matrizPesos, 6);
 	
-	glutDisplayFunc(display);
 	glutMainLoop();
 
 	return 0;
