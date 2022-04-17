@@ -21,14 +21,16 @@ namespace ShowCaminhoMinimo
 
 	void Grafo::setGrafo() {
 		for (int i = 0; i < quantVertices_; i++) {
-			for (int j = 0; j < quantVertices_; j++) {
-				Cor branco(1.0, 1.0, 1.0);
-				Textura textura_(1);
-				Ponto origem(0.0, 0.0);
-				Vertice novoVertice(branco, textura_, origem);
-
-				vertices_[i] = novoVertice;
-			}
+			Cor branco(1.0, 1.0, 1.0);
+			Textura textura_(1);
+			float x = (float)(rand() % 10) - 5;
+			float y = (float)(rand() % 10) - 5;
+			Ponto origem(x, y);
+			Vertice novoVertice(branco, textura_, origem);
+			vertices_[i] = novoVertice;
 		}
 	}
+	
+
+
 }
