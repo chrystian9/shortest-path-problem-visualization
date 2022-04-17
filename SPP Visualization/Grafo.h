@@ -2,19 +2,20 @@
 #include <list>
 
 #include "Vertice.h"
-#include "Aresta.h"
 
 namespace ShowCaminhoMinimo
 {
 	class Grafo
 	{
 	private:
-		Vertice* vertice_;
-		Aresta* arestas_;
+		Vertice* vertices_;
+		int** matrizPesos_;
+		int quantVertices_;
+		void setGrafo();
 	public:
-		Grafo(std::list<int> listaAdjacencia[]);
+		Grafo(int** matrizPesos, int quantidadeVertices);
 		~Grafo();
 		Vertice* getVertices();
-		Aresta* getAresta();
+		int** getMatrizPesos();
 	};
 }

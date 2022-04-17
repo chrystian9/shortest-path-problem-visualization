@@ -2,18 +2,15 @@
 
 namespace ShowCaminhoMinimo
 {
-	Vertice::Vertice(VerticeAresta* vizinhos, Cor cor, Textura textura, Ponto centro) {
-		vizinhos_ = vizinhos;
+	Vertice::Vertice() {}
+
+	Vertice::Vertice(Cor cor, Textura textura, Ponto centro) {
 		cor_ = cor;
 		textura_ = textura;
 		centro_ = centro;
 	}
 
 	Vertice::~Vertice() {}
-
-	VerticeAresta* Vertice::getVizinhos() {
-		return vizinhos_;
-	}
 
 	Cor Vertice::getCor() {
 		return cor_;
@@ -25,10 +22,6 @@ namespace ShowCaminhoMinimo
 
 	Ponto Vertice::getCentro() {
 		return centro_;
-	}
-	
-	void Vertice::setVizinhos(VerticeAresta* vizinhos) {
-		vizinhos_ = vizinhos;
 	}
 	
 	void Vertice::setCor(Cor cor) {

@@ -140,7 +140,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AlgoritmoCaminhoMinimo.h" />
-    <ClInclude Include="Aresta.h" />
     <ClInclude Include="AStar.h" />
     <ClInclude Include="Cor.h" />
     <ClInclude Include="Dijkstra.h" />
@@ -150,11 +149,9 @@
     <ClInclude Include="VisualizaCaminhoMinimo.h" />
     <ClInclude Include="Textura.h" />
     <ClInclude Include="Vertice.h" />
-    <ClInclude Include="VerticeAresta.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AlgoritmoCaminhoMinimo.cpp" />
-    <ClCompile Include="Aresta.cpp" />
     <ClCompile Include="AStar.cpp" />
     <ClCompile Include="Cor.cpp" />
     <ClCompile Include="Dijkstra.cpp" />
@@ -165,7 +162,6 @@
     <ClCompile Include="VisualizaCaminhoMinimo.cpp" />
     <ClCompile Include="Textura.cpp" />
     <ClCompile Include="Vertice.cpp" />
-    <ClCompile Include="VerticeAresta.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

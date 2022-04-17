@@ -4,8 +4,12 @@ namespace ShowCaminhoMinimo
 {
 	Textura::Textura() {}
 
-	Textura::Textura(const Textura& textura) {
+	Textura::Textura(int teste) {
+		teste_ = teste;
+	}
 
+	Textura::Textura(const Textura& textura) {
+		teste_ = textura.teste_;
 	}
 
 	Textura::~Textura(){}
