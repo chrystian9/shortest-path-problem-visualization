@@ -19,6 +19,10 @@ namespace ShowCaminhoMinimo
 		return matrizPesos_;
 	}
 
+	int Grafo::getQuantidadeVertices() {
+		return quantVertices_;
+	}
+
 	void Grafo::setGrafo() {
 		for (int i = 0; i < quantVertices_; i++) {
 			Cor branco(1.0, 1.0, 1.0);

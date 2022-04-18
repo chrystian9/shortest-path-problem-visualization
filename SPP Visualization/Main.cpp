@@ -7,6 +7,7 @@ using namespace std;
 using namespace ShowCaminhoMinimo;
 
 Grafo* grafo;
+AlgoritmoCaminhoMinimo* algCaminhoMinimo;
 
 void drawArestas() {
 	int** matrizPesos = grafo->getMatrizPesos();
@@ -17,7 +18,7 @@ void drawArestas() {
 		Vertice Origem = vertices[i];
 		for (int j = 0; j < 6; j++)
 		{	
-			if (matrizPesos[i][j] != NULL) {
+			if (matrizPesos[i][j] != 0) {
 				Vertice Destino = vertices[j];
 				glColor3f(1.0, 1.0, 1.0);
 				glBegin(GL_LINES);
@@ -35,7 +36,6 @@ void drawVertices() {
 	for (int i = 0; i < 6; i++) {
 		Vertice verticeAux = vertices[i];
 
-		glColor3f(1.0, 1.0, 1.0);
 		glBegin(GL_POLYGON);
 		for (double i = 0; i < 2 * 3.14; i += 3.14 / 20)
 			glVertex3f(verticeAux.getCentro().getX() + (cos(i) * 0.5), verticeAux.getCentro().getY() + (sin(i) * 0.5), 0.0);
@@ -71,6 +71,10 @@ void init() {
 	glShadeModel(GL_FLAT);
 }
 
+void redisplay() {
+	glutPostRedisplay();
+}
+
 int main(int argc, char** argv) {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
@@ -83,7 +87,7 @@ int main(int argc, char** argv) {
 	
 	int** matrizPesos = new int* [6];
 	for (int i = 0; i < 6; i++) {
-		matrizPesos[i] = new int[6];
+		matrizPesos[i] = new int[6] {0};
 	}
 
 	matrizPesos[0][1] = 2;
@@ -94,6 +98,10 @@ int main(int argc, char** argv) {
 	matrizPesos[4][5] = 1;
 	grafo = new Grafo(matrizPesos, 6);
 	
+	algCaminhoMinimo = new AlgoritmoCaminhoMinimo(matrizPesos, 6, &redisplay);
+
+	algCaminhoMinimo->dijkstra();
+
 	glutMainLoop();
 
 	return 0;

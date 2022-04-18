@@ -17,5 +17,6 @@ namespace ShowCaminhoMinimo
 		~Grafo();
 		Vertice* getVertices();
 		int** getMatrizPesos();
+		int getQuantidadeVertices();
 	};
 }
