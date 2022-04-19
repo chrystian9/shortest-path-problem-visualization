@@ -13,7 +13,10 @@ namespace ShowCaminhoMinimo
 
 		redisplay_ = redisplay;
 
-		distancias_ = new int[quantidadeVertices] {0};
+		arestasCaminhoMinimo_ = new bool*[quantidadeVertices];
+		for (int i = 0; i < 6; i++) {
+			arestasCaminhoMinimo_[i] = new bool[6]{ false };
+		}
 	}
 	
 	AlgoritmoCaminhoMinimo::~AlgoritmoCaminhoMinimo() {}
@@ -30,13 +33,12 @@ namespace ShowCaminhoMinimo
 		return grafo_;
 	}
 
-	int* AlgoritmoCaminhoMinimo::getDistancias() {
-		return distancias_;
+	bool** AlgoritmoCaminhoMinimo::getArestasCaminhoMinimo() {
+		return arestasCaminhoMinimo_;
 	}
 
-	void AlgoritmoCaminhoMinimo::novoEvento(int distancias[]) {
-		distancias_ = distancias;
-		
+	void AlgoritmoCaminhoMinimo::novoEvento(bool** arestasCaminhoMinimo) {
+		arestasCaminhoMinimo_ = arestasCaminhoMinimo;
 		redisplay_();
 	}
 }
