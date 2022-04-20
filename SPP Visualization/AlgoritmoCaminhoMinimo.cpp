@@ -21,7 +21,16 @@ namespace ShowCaminhoMinimo
 		showAlgoritmo = 0;
 	}
 	
-	AlgoritmoCaminhoMinimo::~AlgoritmoCaminhoMinimo() {}
+	AlgoritmoCaminhoMinimo::~AlgoritmoCaminhoMinimo() {
+		delete dijkstraSingleton_;
+		delete aStarSingleton_;
+		delete floydWarshallSingleton_;
+		delete grafo_;
+		for (int i = 0; i < 6; i++) {
+			delete[] arestasCaminhoMinimo_[i];
+		}
+		delete[] arestasCaminhoMinimo_;
+	}
 	
 	void AlgoritmoCaminhoMinimo::dijkstra() {
 		showAlgoritmo = 1;

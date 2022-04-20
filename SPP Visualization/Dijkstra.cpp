@@ -6,7 +6,10 @@ namespace ShowCaminhoMinimo
 
 	Dijkstra::Dijkstra() {}
 
-	Dijkstra::~Dijkstra() {}
+	Dijkstra::~Dijkstra() {
+		delete[] distancias_;
+		delete[] sptSet_;
+	}
 
 	Dijkstra* Dijkstra::getInstancia()
 	{

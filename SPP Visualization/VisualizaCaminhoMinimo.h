@@ -15,6 +15,7 @@ namespace ShowCaminhoMinimo
 		static void display(void);
 		static void redisplay();
 		AlgoritmoCaminhoMinimo* algCaminhoMinimo_;
+		bool* verticesPassados_;
 		void constroiTela(int argc, char** argv);
 		void init();
 		void drawVertices(Vertice* vertices);

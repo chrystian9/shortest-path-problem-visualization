@@ -9,7 +9,10 @@ namespace ShowCaminhoMinimo
 
 	VisualizaCaminhoMinimo::VisualizaCaminhoMinimo() {}
 	
-	VisualizaCaminhoMinimo::~VisualizaCaminhoMinimo() {}
+	VisualizaCaminhoMinimo::~VisualizaCaminhoMinimo() {
+		delete algCaminhoMinimo_;
+		delete verticesPassados_;
+	}
 
 	VisualizaCaminhoMinimo* VisualizaCaminhoMinimo::getInstancia(int argc, char** argv, int** matrizPesos, int quantidadeVertices) {
 		if (instancia_ == nullptr) {
@@ -22,6 +25,8 @@ namespace ShowCaminhoMinimo
 	}
 
 	void VisualizaCaminhoMinimo::setPropriedades(int argc, char** argv, int** matrizPesos, int quantidadeVertices) {
+		verticesPassados_ = new bool[quantidadeVertices] {false};
+
 		constroiTela(argc, argv);
 
 		algCaminhoMinimo_ = new AlgoritmoCaminhoMinimo(matrizPesos, 6, redisplay);
@@ -54,27 +59,34 @@ namespace ShowCaminhoMinimo
 	}
 
 	void VisualizaCaminhoMinimo::drawArestas(Vertice* vertices, int** matrizPesos) {
+		glDisable(GL_LIGHTING);
+		glDisable(GL_LIGHT0);
+
+		int quantVertices = algCaminhoMinimo_->getGrafo()->getQuantidadeVertices();
 		bool** aresta = algCaminhoMinimo_->getArestasCaminhoMinimo();
 
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < quantVertices; i++)
 		{
 			Vertice Origem = vertices[i];
-			for (int j = 0; j < 6; j++)
+			for (int j = 0; j < quantVertices; j++)
 			{
 				if (matrizPesos[i][j] != 0 and aresta[i][j] == true) {
 					Vertice Destino = vertices[j];
-					glColor3f(1.0, 0.0, 0.0);
+					verticesPassados_[j] = true;
+
+					glColor3f(1.0f, 0.0, 0.0f);
 					glBegin(GL_LINES);
-					glVertex2f(Origem.getCentro().getX(), Origem.getCentro().getY());
-					glVertex2f(Destino.getCentro().getX(), Destino.getCentro().getY());
+						glVertex2f(Origem.getCentro().getX(), Origem.getCentro().getY());
+						glVertex2f(Destino.getCentro().getX(), Destino.getCentro().getY());
 					glEnd();
 				}
 				else if (matrizPesos[i][j] != 0 and aresta[i][j] == false) {
 					Vertice Destino = vertices[j];
-					glColor3f(1.0, 1.0, 1.0);
+
+					glColor3f(1.0f, 1.0f, 1.0f);
 					glBegin(GL_LINES);
-					glVertex2f(Origem.getCentro().getX(), Origem.getCentro().getY());
-					glVertex2f(Destino.getCentro().getX(), Destino.getCentro().getY());
+						glVertex2f(Origem.getCentro().getX(), Origem.getCentro().getY());
+						glVertex2f(Destino.getCentro().getX(), Destino.getCentro().getY());
 					glEnd();
 				}
 			}
@@ -82,12 +94,45 @@ namespace ShowCaminhoMinimo
 	}
 
 	void VisualizaCaminhoMinimo::drawVertices(Vertice* vertices) {
-		for (int i = 0; i < 6; i++) {
+		GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+		GLfloat mat_shininess[] = { 50.0 };
+		GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
+		glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+		glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+		glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+
+		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT0);
+		glEnable(GL_DEPTH_TEST);
+
+		int quantVertices = algCaminhoMinimo_->getGrafo()->getQuantidadeVertices();
+
+		for (int i = 0; i < quantVertices; i++) {
 			Vertice verticeAux = vertices[i];
 
-			glBegin(GL_POLYGON);
-			for (double i = 0; i < 2 * 3.14; i += 3.14 / 20)
-				glVertex3f(verticeAux.getCentro().getX() + (cos(i) * 0.5), verticeAux.getCentro().getY() + (sin(i) * 0.5), 0.0);
+			if (verticesPassados_[i] and i != 0 and i != (quantVertices-1)) {
+				GLfloat d1[] = { 1.0, 0.0, 1.0, 1.0 };
+				glMaterialfv(GL_FRONT, GL_DIFFUSE, d1);
+			}
+			else if (!verticesPassados_[i] and i != 0 and i != (quantVertices - 1)) {
+				GLfloat d1[] = { 0.0, 0.0, 1.0, 1.0 };
+				glMaterialfv(GL_FRONT, GL_DIFFUSE, d1);
+			}
+			else {
+				Cor cor = verticeAux.getCor();
+				
+				GLfloat d1[] = { cor.getR(), cor.getG(), cor.getB(), cor.getAlfa() };
+				
+				glMaterialfv(GL_FRONT, GL_DIFFUSE, d1);
+			}
+
+			GLUquadric* quad;
+			quad = gluNewQuadric();
+			
+			glPushMatrix();
+			glTranslatef(verticeAux.getCentro().getX(), verticeAux.getCentro().getY(), 0);
+			gluSphere(quad, 0.5, 100, 20);
+			glPopMatrix();
 			glEnd();
 		}
 	}
@@ -98,8 +143,6 @@ namespace ShowCaminhoMinimo
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		instancia_->drawArestas(vertices, instancia_->algCaminhoMinimo_->getGrafo()->getMatrizPesos());
-
-		glColor3f(1.0, 1.0, 1.0);
 
 		instancia_->drawVertices(vertices);
 
@@ -131,7 +174,13 @@ namespace ShowCaminhoMinimo
 
 	void VisualizaCaminhoMinimo::init() {
 		glClearColor(0.0, 0.0, 0.0, 0.0);
-		glShadeModel(GL_FLAT);
+		//glShadeModel(GL_FLAT);
+		//glEnable(GL_DEPTH_TEST);
+		//glEnable(GL_TEXTURE_2D);
+		verticesPassados_[0] = true;
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_TEXTURE_2D);
+
 	}
 
 	void VisualizaCaminhoMinimo::show() {

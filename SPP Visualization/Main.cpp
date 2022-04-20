@@ -21,6 +21,25 @@ int main(int argc, char** argv) {
 	VisualizaCaminhoMinimo* visualizaCaminhoMinimoSingleton = VisualizaCaminhoMinimo::getInstancia(argc, argv, matrizPesos, 6);
 
 	visualizaCaminhoMinimoSingleton->show();
+	
+	/*
+	int** matrizPesos = new int* [6];
+	for (int i = 0; i < 6; i++) {
+		matrizPesos[i] = new int[6]{ 0 };
+	}
+
+	matrizPesos[0][2] = 2;
+	matrizPesos[0][3] = 10;
+	matrizPesos[0][5] = 50;
+	matrizPesos[2][3] = 3;
+	matrizPesos[2][4] = 20;
+	matrizPesos[4][5] = 30;
+	matrizPesos[2][3] = 3;
+
+	VisualizaCaminhoMinimo*  visualizaCaminhoMinimoSingleton = VisualizaCaminhoMinimo::getInstancia(argc, argv, matrizPesos, 6);
+
+	visualizaCaminhoMinimoSingleton->show();
+	*/
 
 	return 0;
 }
