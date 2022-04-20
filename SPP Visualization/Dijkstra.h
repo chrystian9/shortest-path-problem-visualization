@@ -12,12 +12,24 @@ namespace ShowCaminhoMinimo
 	{
 	private:
 		static Dijkstra* instancia_;
+		AlgoritmoCaminhoMinimo* algCaminhoMinimo_;
+		Grafo* grafo_;
+		int quantVertices_;
+		int** matrizPesos_;
+		int* distancias_;
+		bool* sptSet_;
+		bool** aresta_;
+		int anterior_;
+		int origemIndex_;
+		int count_;
+		int v_;
 		Dijkstra();
 		static int minDistance(int dist[], bool sptSet[], int quantidadeVertices);
 	public:
 		~Dijkstra();
 		static Dijkstra* getInstancia();
-		void showDijkstra(Grafo* grafo, int origemIndex, AlgoritmoCaminhoMinimo* algCaminhoMinimo);
+		bool** getNovoEvento();
+		void setPropriedades(AlgoritmoCaminhoMinimo* algoritmoCaminhoMinimo, Grafo* grafo, int origemIndex);
 	};
 }
 

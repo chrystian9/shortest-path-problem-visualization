@@ -17,12 +17,16 @@ namespace ShowCaminhoMinimo
 		for (int i = 0; i < 6; i++) {
 			arestasCaminhoMinimo_[i] = new bool[6]{ false };
 		}
+		
+		showAlgoritmo = 0;
 	}
 	
 	AlgoritmoCaminhoMinimo::~AlgoritmoCaminhoMinimo() {}
 	
 	void AlgoritmoCaminhoMinimo::dijkstra() {
-		dijkstraSingleton_->showDijkstra(grafo_, 0, this);
+		showAlgoritmo = 1;
+
+		dijkstraSingleton_->setPropriedades(this, grafo_, 0);
 	}
 	
 	void AlgoritmoCaminhoMinimo::floydWarshall() {}
@@ -37,8 +41,16 @@ namespace ShowCaminhoMinimo
 		return arestasCaminhoMinimo_;
 	}
 
-	void AlgoritmoCaminhoMinimo::novoEvento(bool** arestasCaminhoMinimo) {
-		arestasCaminhoMinimo_ = arestasCaminhoMinimo;
+	void AlgoritmoCaminhoMinimo::novoEvento() {
+		switch (showAlgoritmo)
+		{
+		case 1:
+			arestasCaminhoMinimo_ = dijkstraSingleton_->getNovoEvento();
+			break;
+		default:
+			break;
+		}
+
 		redisplay_();
 	}
 }

@@ -20,6 +20,7 @@ namespace ShowCaminhoMinimo
 		Grafo* grafo_;
 		void (*redisplay_)();
 		bool** arestasCaminhoMinimo_;
+		int showAlgoritmo;
 	public:
 		AlgoritmoCaminhoMinimo();
 		AlgoritmoCaminhoMinimo(int** matrizPesos, int quantidadeVertices, void (*display)());
@@ -29,7 +30,7 @@ namespace ShowCaminhoMinimo
 		void aStar();
 		Grafo* getGrafo();
 		bool** getArestasCaminhoMinimo();
-		void novoEvento(bool** arestasCaminhoMinimo);
+		void novoEvento();
 	};
 }
 
