@@ -14,7 +14,6 @@ namespace ShowCaminhoMinimo
 			}
 		}
 
-		vertices_ = new Vertice[quantVertices_];
 		setGrafo();
 	}
 
@@ -39,6 +38,11 @@ namespace ShowCaminhoMinimo
 	}
 
 	void Grafo::setGrafo() {
+		if (vertices_ != nullptr) {
+			delete[] vertices_;
+		}
+		vertices_ = new Vertice[quantVertices_];
+
 		Cor* cor;
 		for (int i = 0; i < quantVertices_; i++) {
 			if (i == 0) {
@@ -51,11 +55,10 @@ namespace ShowCaminhoMinimo
 				cor = new Cor(1.0, 1.0, 1.0, 1.0);
 			}
 
-			Textura textura_(1);
 			float x = (float)(rand() % 8) - 3;
 			float y = (float)(rand() % 8) - 3;
 			Ponto ponto(x, y);
-			Vertice novoVertice(*cor, textura_, ponto);
+			Vertice novoVertice(*cor, ponto);
 			vertices_[i] = novoVertice;
 		}
 	}

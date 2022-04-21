@@ -72,4 +72,8 @@ namespace ShowCaminhoMinimo
 
         return min_index;
     }
+
+	bool Dijkstra::isFim() {
+		return count_ >= quantVertices_ - 1;
+	}
 }

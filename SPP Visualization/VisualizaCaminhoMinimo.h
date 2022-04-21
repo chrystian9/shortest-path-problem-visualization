@@ -14,6 +14,11 @@ namespace ShowCaminhoMinimo
 		static void reshape(int w, int h);
 		static void display(void);
 		static void redisplay();
+		static void keyboardOptions(unsigned char key, int x, int y);
+		GLubyte* stripeImage;
+#ifdef GL_VERSION_1_1
+		GLuint texName;
+#endif
 		AlgoritmoCaminhoMinimo* algCaminhoMinimo_;
 		bool* verticesPassados_;
 		void constroiTela(int argc, char** argv);
@@ -21,6 +26,8 @@ namespace ShowCaminhoMinimo
 		void drawVertices(Vertice* vertices);
 		void drawArestas(Vertice* vertices, int** matrizPesos);
 		void setPropriedades(int argc, char** argv, int** matrizPesos, int quantidadeVertices);
+		void resetProcesso();
+		void makeStripeImage(void);
 		VisualizaCaminhoMinimo();
 	public:
 		static void Timer(int value);

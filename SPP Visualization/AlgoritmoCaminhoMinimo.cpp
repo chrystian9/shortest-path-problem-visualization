@@ -13,10 +13,7 @@ namespace ShowCaminhoMinimo
 
 		redisplay_ = redisplay;
 
-		arestasCaminhoMinimo_ = new bool*[quantidadeVertices];
-		for (int i = 0; i < 6; i++) {
-			arestasCaminhoMinimo_[i] = new bool[6]{ false };
-		}
+		setArestasCaminhoMinimo();
 		
 		showAlgoritmo = 0;
 	}
@@ -26,10 +23,7 @@ namespace ShowCaminhoMinimo
 		delete aStarSingleton_;
 		delete floydWarshallSingleton_;
 		delete grafo_;
-		for (int i = 0; i < 6; i++) {
-			delete[] arestasCaminhoMinimo_[i];
-		}
-		delete[] arestasCaminhoMinimo_;
+		destroyArestasCaminhoMinimo();
 	}
 	
 	void AlgoritmoCaminhoMinimo::dijkstra() {
@@ -46,8 +40,39 @@ namespace ShowCaminhoMinimo
 		return grafo_;
 	}
 
+	void AlgoritmoCaminhoMinimo::setArestasCaminhoMinimo() {
+		if(arestasCaminhoMinimo_ != nullptr){
+			destroyArestasCaminhoMinimo();
+		}
+		
+		int quantidadeVertices = grafo_->getQuantidadeVertices();
+
+		arestasCaminhoMinimo_ = new bool* [quantidadeVertices];
+		for (int i = 0; i < quantidadeVertices; i++) {
+			arestasCaminhoMinimo_[i] = new bool[quantidadeVertices]{ false };
+		}
+	}
+
 	bool** AlgoritmoCaminhoMinimo::getArestasCaminhoMinimo() {
 		return arestasCaminhoMinimo_;
+	}
+
+	void AlgoritmoCaminhoMinimo::destroyArestasCaminhoMinimo() {
+		for (int i = 0; i < 6; i++) {
+			delete[] arestasCaminhoMinimo_[i];
+		}
+		delete[] arestasCaminhoMinimo_;
+	}
+
+	bool AlgoritmoCaminhoMinimo::isFim() {
+		switch (showAlgoritmo)
+		{
+		case 1:
+			return dijkstraSingleton_->isFim();
+			break;
+		default:
+			break;
+		}
 	}
 
 	void AlgoritmoCaminhoMinimo::novoEvento() {

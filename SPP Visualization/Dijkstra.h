@@ -30,6 +30,7 @@ namespace ShowCaminhoMinimo
 		static Dijkstra* getInstancia();
 		bool** getNovoEvento();
 		void setPropriedades(AlgoritmoCaminhoMinimo* algoritmoCaminhoMinimo, Grafo* grafo, int origemIndex);
+		bool isFim();
 	};
 }
 

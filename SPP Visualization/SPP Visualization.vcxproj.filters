@@ -39,9 +39,6 @@
     <ClInclude Include="Cor.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="Textura.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
     <ClInclude Include="Ponto.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
@@ -69,9 +66,6 @@
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="Cor.cpp">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="Textura.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="Ponto.cpp">
